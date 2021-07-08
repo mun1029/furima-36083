@@ -2,16 +2,16 @@
 
 ## users テーブル
 
-| Column              | Type       | Options                |
-| ------------------- | ---------- | ---------------------- |
-| nickname            | string     | NOT NULL               |
-| email               | string     | NOT NULL, unique: true |
-| encrypted_password  | string     | NOT NULL               |
-| first_name          | string     | NOT NULL               |
-| last_name           | string     | NOT NULL               |
-| first_name_kana     | string     | NOT NULL               |
-| last_name_kana      | string     | NOT NULL               |
-| birthday            | date       | NOT NULL               |
+| Column              | Type       | Options                   |
+| ------------------- | ---------- | ------------------------- |
+| nickname            | string     | null: false               |
+| email               | string     | null: false, unique: true |
+| encrypted_password  | string     | null: false               |
+| first_name          | string     | null: false               |
+| last_name           | string     | null: false               |
+| first_name_kana     | string     | null: false               |
+| last_name_kana      | string     | null: false               |
+| birthday            | date       | null: false               |
 
 ### Association
 
@@ -21,17 +21,17 @@ has_many :comment
 
 ## products テーブル
 
-| Column                    | Type       | Options  |
-| ------------------------- | ---------- | -------- |
-| user_id                   | references | NOT NULL |
-| name                      | string     | NOT NULL |
-| description               | text       | NOT NULL |
-| category_id               | integer    | NOT NULL |
-| delivery_id               | integer    | NOT NULL |
-| area_id                   | integer    | NOT NULL |
-| delivery_day_id           | integer    | NOT NULL |
-| status_id                 | integer    | NOT NULL |
-| price                     | integer    | NOT NULL |
+| Column                    | Type       | Options                        |
+| ------------------------- | ---------- | ------------------------------ |
+| user                      | references | null: false, foreign_key: true |
+| name                      | string     | null: false                    |
+| description               | text       | null: false                    |
+| category_id               | integer    | null: false                    |
+| delivery_id               | integer    | null: false                    |
+| area_id                   | integer    | null: false                    |
+| delivery_day_id           | integer    | null: false                    |
+| status_id                 | integer    | null: false                    |
+| price                     | integer    | null: false                    |
 
 ### Association
 has_one :order
@@ -40,38 +40,38 @@ belongs_to :user
 
 ## orders テーブル
 
-| Column                    | Type       | Options  |
-| ------------------------- | ---------- | -------- |
-| user_id                   | references | NOT NULL |
-| product_id                | references | NOT NULL |
+| Column                 | Type       | Options                        |
+| ---------------------- | ---------- | ------------------------------ |
+| user                   | references | null: false, foreign_key: true |
+| product                | references | null: false, foreign_key: true|
 
 ### Association
-has_one :shippinginformations
+has_one :shippinginformation
 belongs_to :user
 belongs_to :product
 
 ## shippinginformations テーブル
 
-| Column                          | Type       | Options  |
-| ------------------------------- | ---------- | -------- |
-| orders_id                       | string     | NOT NULL |
-| post_code                       | string     | NOT NULL |
-| prefecture                      | string     | NOT NULL |
-| municipality                    | string     | NOT NULL |
-| address                         | string     | NOT NULL |
-| building_name                   | string     | NULL     |
-| phone_number                    | string     | NOT NULL |
+| Column                          | Type       | Options                        |
+| ------------------------------- | ---------- | ------------------------------ |
+| orders                          | references | null: false, foreign_key: true |
+| post_code                       | string     | null: false                    |
+| prefecture_id                   | integer    | null: false                    |
+| municipality                    | string     | null: false                    |
+| address                         | string     | null: false                    |
+| building_name                   | string     | null: false                    |
+| phone_number                    | string     | null: false                    |
 
 ### Association
 belongs_to :order
 
 ## comments テーブル
 
-| Column                    | Type       | Options  |
-| ------------------------- | ---------- | -------- |
-| user_id                   | references | NOT NULL |
-| product_id                | references | NOT NULL |
-| comment                   | text       | NOT NULL |
+| Column                    | Type       | Options                        |
+| ------------------------- | ---------- | ------------------------------ |
+| user                      | references | null: false, foreign_key: true |
+| product                   | references | null: false, foreign_key: true |
+| comment                   | text       | null: false                    |
 
 ### Association
 belongs_to :user
