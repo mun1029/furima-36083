@@ -49,6 +49,11 @@ RSpec.describe User, type: :model do
         another_user.valid?
         expect(another_user.errors.full_messages).to include("Email has already been taken")
       end
+      it 'emailは必ず＠を含まないと登録できない' do
+        @user.email = 'test.com'
+        @user.valid?
+        expect(@user.errors.full_messages).to include("Email is invalid")
+      end
       it 'passwordが5文字以下では登録できない' do
         @user.password = '1234a'
         @user.valid?
@@ -83,6 +88,16 @@ RSpec.describe User, type: :model do
         @user.last_name_kana = 'aaa'
         @user.valid?
         expect(@user.errors.full_messages).to include("Last name kana 全角(カナ)文字を使用してください")
+      end
+      it 'first_name_kanaが空だと登録できない' do
+        @user.first_name_kana = ''
+        @user.valid?
+        expect(@user.errors.full_messages).to include("First name kana can't be blank")
+      end
+      it 'first_name_kanaが全角(カナ)文字ではないと登録できない' do
+        @user.first_name_kana = 'aaa'
+        @user.valid?
+        expect(@user.errors.full_messages).to include("First name kana 全角(カナ)文字を使用してください")
       end
       it 'birthdayが空だと登録できない' do
         @user.birthday = ''
