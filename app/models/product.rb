@@ -1,13 +1,24 @@
 class Product < ApplicationRecord
+  extend ActiveHash::Associations::ActiveRecordExtensions
+  belongs_to :category
+  belongs_to :status
+  belongs_to :delivery
+  belongs_to :area
+  belongs_to :delivery_day
   belongs_to :user
 
-  validates :user,            presence: true
-  validates :name,            presence: true
-  validates :description,     presence: true
-  validates :category_id,     presence: true
-  validates :delivery_id,     presence: true
-  validates :area_id,         presence: true
-  validates :delivery_day_id, presence: true
-  validates :status_id,       presence: true
-  validates :price,           presence: true
+  with_options presence: true do
+    validates :user
+    validates :name
+    validates :description
+    validates :price
+  end
+
+  with_options numericality: { other_than: 1 , message: "can't be blank"} do
+    validates :category_id
+    validates :delivery_id 
+    validates :area_id      
+    validates :delivery_day_id
+    validates :status_id
+  end
 end
