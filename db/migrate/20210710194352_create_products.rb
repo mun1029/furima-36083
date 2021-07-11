@@ -7,7 +7,7 @@ class CreateProducts < ActiveRecord::Migration[6.0]
       t.integer    :category_id,    null: false
       t.integer    :delivery_id,    null: false
       t.integer    :area_id,        null: false
-      t.integer    :elivery_day_id, null: false
+      t.integer    :delivery_day_id, null: false
       t.integer    :status_id,      null: false
       t.integer    :price,          null: false
       t.timestamps
