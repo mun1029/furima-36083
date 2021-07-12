@@ -21,9 +21,10 @@ RSpec.describe Product, type: :model do
     end
     context '出品できないとき' do
       it 'ユーザーが空のとき' do
-        @product.user_id = '0'
+        @product.user_id = nil
         @product.valid?
-        expect(@product.errors.full_messages).to include("User can't be blank")
+        binding.pry
+        expect(@product.errors.full_messages).to include()
       end
       it 'imageが空のとき' do
         @product.image = nil

@@ -12,7 +12,6 @@ class Product < ApplicationRecord
   
 
   with_options presence: true do
-    validates :user
     validates :name
     validates :description
     validates :image
