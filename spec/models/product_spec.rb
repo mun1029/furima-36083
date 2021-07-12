@@ -21,10 +21,9 @@ RSpec.describe Product, type: :model do
     end
     context '出品できないとき' do
       it 'ユーザーが空のとき' do
-        @product.user_id = nil
+        @product.user = nil
         @product.valid?
-        binding.pry
-        expect(@product.errors.full_messages).to include()
+        expect(@product.errors.full_messages).to include("User must exist")
       end
       it 'imageが空のとき' do
         @product.image = nil
