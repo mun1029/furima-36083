@@ -16,7 +16,7 @@ class OrderSipping
 
   def save
     order = Order.create(user_id: user_id, product_id: product_id)
-    Sipping.create(order: order, post_code: post_code, area_id: area_id, municipality: municipality, address: address, building_name: building_name, phone_number: phone_number)
+    Sipping.create(order_id: order.id, post_code: post_code, area_id: area_id, municipality: municipality, address: address, building_name: building_name, phone_number: phone_number)
   end
 
 end

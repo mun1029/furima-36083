@@ -4,6 +4,7 @@ class OrdersController < ApplicationController
   before_action :move_to_index, only: [:index, :create]
 
   def index
+    @order_sipping = OrderSipping.new
   end
 
   def create
@@ -28,9 +29,7 @@ class OrdersController < ApplicationController
   end
 
   def move_to_index
-    if current_user.id != @product.user.id && @product.order == nil
-      @order_sipping = OrderSipping.new
-    else
+    if current_user.id == @product.user.id && @product.order == nil
       redirect_to root_path
     end
   end
