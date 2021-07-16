@@ -59,6 +59,11 @@ RSpec.describe OrderSipping, type: :model do
         @order_sipping.valid?
         expect(@order_sipping.errors.full_messages).to include("Phone number can't be blank")
       end
+      it 'phone_numberは英数混合では登録できないとき' do
+        @order_sipping.phone_number = 'abc12345678'
+        @order_sipping.valid?
+        expect(@order_sipping.errors.full_messages).to include("Phone number can't be blank")
+      end
       it 'phone_numberが10桁以内のとき' do
         @order_sipping.phone_number = '123456789'
         @order_sipping.valid?

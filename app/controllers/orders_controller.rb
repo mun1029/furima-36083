@@ -1,13 +1,9 @@
 class OrdersController < ApplicationController
   before_action :authenticate_user!
   before_action :set_product, only: [:index, :create]
+  before_action :move_to_index, only: [:index, :create]
 
   def index
-    if current_user.id != @product.user.id && @product.order == nil
-      @order_sipping = OrderSipping.new
-    else
-      redirect_to root_path
-    end
   end
 
   def create
@@ -30,6 +26,15 @@ class OrdersController < ApplicationController
   def set_product
     @product = Product.find(params[:product_id])
   end
+
+  def move_to_index
+    if current_user.id != @product.user.id && @product.order == nil
+      @order_sipping = OrderSipping.new
+    else
+      redirect_to root_path
+    end
+  end
+
   def pry_product
     Payjp.api_key = ENV["PAYJP_SECRET_KEY"]
     Payjp::Charge.create(
