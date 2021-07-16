@@ -28,9 +28,7 @@
         <p class="or-text">or</p>
         <%= link_to "削除",  product_path, method: :delete, class:"item-destroy" %>
       <% else %>
-        <% unless @product.order.present? %>
           <%= link_to "購入画面に進む",  product_orders_path(@product.id) ,class:"item-red-btn"%>
-        <% end %>
       <% end %>
     <% end %>
     <div class="item-explain-box">

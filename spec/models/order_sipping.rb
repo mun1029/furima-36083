@@ -10,19 +10,11 @@ RSpec.describe OrderSipping, type: :model do
     end
 
     context '購入保存ができるとき' do
-      it '全ての値が正しく入力されていること' do
-        expect(@order_sipping).to be_valid
-      end
-      it 'post_codeが3桁ハイフン4桁の半角文字列のとき' do
-        @order_sipping.post_code = '123-4567'
+      it '全ての値とtokenが正しく入力されていること' do
         expect(@order_sipping).to be_valid
       end
       it 'building_nameが空でも保存できるとき' do
         @order_sipping.building_name = ''
-        expect(@order_sipping).to be_valid
-      end
-      it '電話番号が10桁以上11桁以内の半角数値のとき' do
-        @order_sipping.phone_number = '09012341234'
         expect(@order_sipping).to be_valid
       end
     end
@@ -76,6 +68,21 @@ RSpec.describe OrderSipping, type: :model do
         @order_sipping.phone_number = '０９０１２３４５６７８'
         @order_sipping.valid?
         expect(@order_sipping.errors.full_messages).to include("Phone number can't be blank")
+      end
+      it 'userが紐付いてないと保存できないこと' do
+        @order_sipping.user_id = nil
+        @order_sipping.valid?
+        expect(@order_sipping.errors.full_messages).to include("User can't be blank")
+      end
+      it 'productが紐付いてないと保存できないこと' do
+        @order_sipping.product_id = nil
+        @order_sipping.valid?
+        expect(@order_sipping.errors.full_messages).to include("Product can't be blank")
+      end
+      it 'tokenが空では登録できないこと' do
+        @order_sipping.token = nil
+        @order_sipping.valid?
+        expect(@order_sipping.errors.full_messages).to include("Token can't be blank")
       end
     end
   end

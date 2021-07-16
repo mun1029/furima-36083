@@ -3,8 +3,7 @@ class OrdersController < ApplicationController
   before_action :set_product, only: [:index, :create]
 
   def index
-    #@product = Product.find(params[:product_id])
-    if user_signed_in? && current_user.id != @product.user.id && @product.order == nil
+    if current_user.id != @product.user.id && @product.order == nil
       @order_sipping = OrderSipping.new
     else
       redirect_to root_path
@@ -12,7 +11,6 @@ class OrdersController < ApplicationController
   end
 
   def create
-    #@product = Product.find(params[:product_id])
     @order_sipping = OrderSipping.new(order_params)
     if @order_sipping.valid?
       pry_product
@@ -33,7 +31,7 @@ class OrdersController < ApplicationController
     @product = Product.find(params[:product_id])
   end
   def pry_product
-    Payjp.api_key = "sk_test_e6a525e2a114f9eff09ba6a8"
+    Payjp.api_key = ENV["PAYJP_SECRET_KEY"]
     Payjp::Charge.create(
       amount: @product.price,  
       card: order_params[:token],    
