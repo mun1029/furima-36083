@@ -49,7 +49,7 @@ class ProductsController < ApplicationController
   end
 
   def move_to_edit
-    unless current_user.id == @product.user.id
+    unless current_user.id == @product.user.id && @product.order == nil
       redirect_to action: :index
     end
   end
