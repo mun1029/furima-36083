@@ -6,6 +6,7 @@ class Product < ApplicationRecord
   belongs_to :area
   belongs_to :delivery_day
   belongs_to :user
+  has_one    :order
 
   has_one_attached :image
 
