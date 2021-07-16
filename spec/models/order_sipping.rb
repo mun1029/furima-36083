@@ -39,6 +39,11 @@ RSpec.describe OrderSipping, type: :model do
         @order_sipping.valid?
         expect(@order_sipping.errors.full_messages).to include("Area can't be blank")
       end
+      it 'area_idが空のとき' do
+        @order_sipping.area_id = ''
+        @order_sipping.valid?
+        expect(@order_sipping.errors.full_messages).to include("Area can't be blank")
+      end
       it 'municipalityが空のとき' do
         @order_sipping.municipality = ''
         @order_sipping.valid?
