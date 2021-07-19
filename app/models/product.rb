@@ -7,6 +7,7 @@ class Product < ApplicationRecord
   belongs_to :delivery_day
   belongs_to :user
   has_one    :order
+  has_many   :comments
 
   has_one_attached :image
 
